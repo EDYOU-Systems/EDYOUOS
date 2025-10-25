@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/assets/logo.png">
+    <title>EDYOU OS - Das Betriebssystem für Schulen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --emerald: rgb(1, 101, 73);
+            --dark-bg: rgb(17, 24, 39);
+            --dark-card: rgb(31, 41, 55);
+            --dark-card-transparent: rgba(31, 41, 55, 0.5);
+        }
+
+        /* Global highlight color: make sure any <span class="highlight"> uses the emerald theme */
+        .highlight {
+            color: var(--emerald);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #ffffff;
+            background-color: var(--dark-bg);
+        }
+
+        /* Header/Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(17, 24, 39, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo svg,
+        .logo img {
+            width: 29px;
+            height: 29px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--emerald);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark-bg);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--emerald);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background-color: var(--emerald);
+            color: #ffffff;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(4, 120, 87, 0.3);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            padding-top: 8px;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            width: 6px;
+            height: 10px;
+            background: var(--emerald);
+            border-radius: 3px;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(10px); opacity: 0.5; }
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content h2 .highlight {
+            color: var(--emerald);
+        }
+
+        .about-content p {
+            color: #9ca3af;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon {
+            color: var(--emerald);
+            flex-shrink: 0;
+        }
+
+        .feature-text strong {
+            color: #ffffff;
+        }
+
+        .feature-text {
+            color: #9ca3af;
+        }
+
+        .about-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--dark-card-transparent);
+            border-radius: 20px;
+            padding: 0;
+            border: 2px solid rgba(4, 120, 87, 0.405);
+            box-shadow: 0 0 50px rgba(4, 120, 87, 0.241);
+            overflow: hidden;
+        }
+
+        .logo-large {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* image fallbacks for replaced inline SVGs */
+        .logo-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px; /* Passend zum Container-Radius */
+            display: block;
+        }
+
+        .mountain-logo {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .mountain-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Download Section */
+        .download-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: var(--dark-card);
+        }
+
+        .download-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-section .section-desc {
+            color: #9ca3af;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+
+        .download-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .download-card {
+            background: var(--dark-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid rgba(4, 120, 87, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(4, 120, 87, 0.2);
+        }
+
+        .download-icon {
+            color: var(--emerald);
+            margin-bottom: 1.5rem;
+        }
+
+        .download-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .download-card p {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-points {
+            list-style: none;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .feature-points li {
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-points li:last-child {
+            border-bottom: none;
+        }
+
+        .download-actions {
+            margin-top: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .download-button {
+            background: var(--emerald);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(4, 120, 87, 0.3);
+        }
+
+        .download-button.coming-soon {
+            background: rgba(1, 101, 73, 0.3);
+            cursor: not-allowed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-button.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .download-button.coming-soon span {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .download-button span {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .download-button small {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .download-card.coming-soon {
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .download-alt {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .download-alt:hover {
+            color: var(--emerald);
+        }
+
+        /* Mountain Logo Section */
+        .mountain-section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mountain-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* gallery image sizing (replaced SVGs) */
+        .gallery-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mountain-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mountain-content h2 .highlight {
+            color: var(--emerald);
+        }
+
+        .mountain-content p {
+            color: #9ca3af;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .mountain-features {
+            list-style: none;
+        }
+
+        .mountain-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 6rem 2rem;
+            background: var(--dark-card);
+            text-align: center;
+        }
+
+        .gallery h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery h2 .highlight {
+            color: var(--emerald);
+        }
+
+        .gallery p {
+            color: #9ca3af;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            background: var(--dark-bg);
+            border-radius: 13px;
+            padding: 0;
+            border: 2px solid rgba(4, 120, 87, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(4, 120, 87, 0.2);
+        }
+
+        .gallery-item svg {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery cards: image zoom on hover and bottom-left overlay */
+        .gallery-grid {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            /* aim for large, nearly full-size cards on desktop to suit 1600x900 images */
+            grid-template-columns: repeat(auto-fit, minmax(720px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            background: var(--dark-bg);
+            border-radius: 15px;
+            padding: 0; /* padding moved to card content */
+            /* use a subtler border that blends with the background to avoid visible bands */
+            border: 1px solid rgba(255,255,255,0.03);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-card {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            min-height: 420px;
+            max-width: 1280px;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            flex-direction: column;
+            aspect-ratio: 16/9;
+            border-radius: 13px;
+            background: transparent;
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            background: var(--dark-bg);
+            transition: transform 0.35s ease;
+            transform-origin: center center;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+            flex: 1;
+        }
+
+        /* On small viewports prefer contain to avoid cropping important content */
+        @media (max-width: 900px) {
+            .gallery-card img {
+                object-fit: contain;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr; /* stack on small screens */
+            }
+            .gallery-card {
+                min-height: 300px;
+                max-width: 100%;
+            }
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.03);
+            /* mild darken on hover so white overlay text pops against the image */
+            filter: brightness(0.9);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            max-width: 40%; /* prevent overlay from filling whole card */
+            padding: 1rem;
+            background: rgba(2,6,23,0.8); /* Dunklerer Hintergrund für bessere Lesbarkeit */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem; /* Größerer Abstand zwischen Titel und Text */
+            align-items: flex-start;
+            transform: translateY(12px);
+            opacity: 0;
+            transition: transform 0.28s ease, opacity 0.28s ease;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+        }
+
+        /* show overlay only on hover */
+        .gallery-card:hover .gallery-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.3; /* Bessere Zeilenhöhe für Überschriften */
+            margin-bottom: 0.25rem; /* Zusätzlicher Abstand zum Text */
+        }
+
+        .gallery-overlay p {
+            margin: 0;
+            color: rgba(255,255,255,0.92);
+            font-size: 0.92rem;
+            line-height: 1.4; /* Größere Zeilenhöhe für bessere Lesbarkeit */
+        }
+
+        /* card hover effect */
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(4,120,87,0.12);
+        }
+
+        /* Lightbox / modal */
+        #lightbox-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0); /* start transparent, animate to darker on .visible */
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 2rem;
+            transition: background 250ms ease, opacity 250ms ease;
+            opacity: 0;
+            /* subtle blur of background behind the backdrop (optional, may be disabled on older browsers) */
+            backdrop-filter: blur(2px);
+        }
+
+        #lightbox-backdrop.visible {
+            display: flex;
+            background: rgba(0, 0, 0, 0.65); /* darken page when visible */
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            background: #0f1724;
+            border-radius: 14px;
+            max-width: 1300px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(2, 6, 23, 0);
+            overflow: hidden;
+            position: relative;
+            /* start slightly scaled down and transparent, then animate in */
+            transform: translateY(8px) scale(0.98);
+            opacity: 0;
+            transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease;
+        }
+
+        /* when the backdrop is visible, bring the lightbox content into view */
+        #lightbox-backdrop.visible .lightbox-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .lightbox-img {
+            width: 100%;
+            display: block;
+            max-height: 80vh;
+            object-fit: contain; /* show full image in lightbox */
+            object-position: center;
+            background-color: var(--dark-bg);
+            /* ensure it sits on the same dark background as the card */
+            border-radius: 8px 8px 0 0;
+        }
+
+        .lightbox-overlay {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            color: #071017c4; /* dark text for lightbox overlay */
+            max-width: calc(100% - 2rem);
+            text-align: left;
+            background: rgba(0, 0, 0, 0.675);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+        }
+
+        .lightbox-overlay h3 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1.35rem;
+            color: #071017;
+        }
+
+        .lightbox-overlay p {
+            margin: 0;
+            color: #0f2a2a;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            right: 0.8rem;
+            top: 0.8rem;
+            background: var(--emerald);
+            color: #ffffff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.25rem;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(4,120,87,0.28);
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(4,120,87,0.35);
+            filter: brightness(0.95);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-info h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-info p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .social-links span {
+            color: #9ca3af;
+            margin-right: 0.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--emerald);
+            color: #ffffff;
+        }
+
+        .social-links svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .about,
+            .mountain-section {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="assets/logo.png" alt="EDYOU Logo" />
+                <span>EDYOU OS</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Das moderne Betriebssystem<br>für Schulen</h1>
+        <p class="subtitle">Edyoucation for you!</p>
+        <a href="#about" class="cta-button">
+            Entdecke EDYOU OS
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+            </svg>
+        </a>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Lightbox / enlarged card view -->
+    <div id="lightbox-backdrop" aria-hidden="true">
+        <div class="lightbox-content" role="dialog" aria-modal="true">
+            <button class="lightbox-close" aria-label="Schließen">×</button>
+            <img class="lightbox-img" id="lightbox-img" role="img" alt="" />
+        </div>
+    </div>
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2>Für das Klassenzimmer der<br><span class="highlight">Zukunft</span></h2>
+            <p>EDYOU OS ist ein modernes, auf Datenschutz ausgerichtetes Linux-Betriebssystem, das für Schulen entwickelt wurde. Es basiert auf dem soliden Fundament von Ubuntu LTS und bietet eine saubere, Windows-ähnliche Oberfläche.</p>
+            <ul class="features-list">
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span class="feature-text"><strong>Schnell und effizient</strong> – läuft reibungslos auf älterer Schulhardware.</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon">
+                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                    <span class="feature-text"><strong>Privacy-first</strong> – keine Telemetrie, keine Datenerfassung, keine Werbung.</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                        <line x1="12" x2="12" y1="22" y2="12"></line>
+                    </svg>
+                    <span class="feature-text"><strong>Zuverlässig und sicher</strong> – angetrieben von Ubuntu LTS.</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon">
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                    </svg>
+                    <span class="feature-text"><strong>Bereit für den Unterricht</strong> – perfekt für Lehren, Lernen und Kreativität.</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M2 12h20"></path>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span class="feature-text"><strong>Open Source</strong> – vollständig anpassbar und erweiterbar.</span>
+                </li>
+            </ul>
+        </div>
+        <div class="about-visual">
+            <div class="logo-large">
+                <img src="assets/Classroom.png" alt="EDYOU large logo" />
+            </div>
+        </div>
+    </section>
+
+    <section class="mountain-section">
+        <div class="mountain-visual">
+            <div class="mountain-logo">
+                <img src="assets/logo2.jpg" alt="EDYOU mountain logo" />
+            </div>
+        </div>
+        <div class="mountain-content">
+            <h2>Die Bedeutung hinter dem <span class="highlight">Berg</span></h2>
+            <p>Der Berg im EDYOU OS-Logo steht für Wachstum, Fortschritt und Lernen. Jeder Schritt nach oben erfordert Mühe, Neugier und Hingabe – genau wie Bildung.</p>
+            <ul class="mountain-features">
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                        <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                    <span class="feature-text"><strong>Fortschritt</strong> – Schüler und Lehrer zu neuen Höhen führen.</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon">
+                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                    </svg>
+                    <span class="feature-text"><strong>Freiheit</strong> – keine Einschränkungen, keine Unternehmenskontrolle.</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon">
+                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    </svg>
+                    <span class="feature-text"><strong>Stabilität</strong> – eine starke und verlässliche Grundlage für Bildung.</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <h2>Unsere <span class="highlight">Galerie</span></h2>
+        <p>Ein Einblick in die klare und moderne Oberfläche von EDYOU OS.</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-card">
+                    <img src="assets/files.png" alt="Dateimanager - EDYOU" />
+                    <div class="gallery-overlay">
+                        <h3>Dateien</h3>
+                        <p>Ein zentrales, übersichtliches Dateisystem — ideal für Unterrichtsdateien, Materialien und Projektsammlungen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-card">
+                    <img src="assets/Inkscape.png" alt="Inkscape auf EDYOU" />
+                    <div class="gallery-overlay">
+                        <h3>Inkscape</h3>
+                        <p>Leistungsstarke Vektorgrafik- und Zeichenwerkzeuge — perfekt für Design, Diagramme und kreative Aufgaben.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-card">
+                    <img src="assets/terminal.png" alt="Terminal - EDYOU" />
+                    <div class="gallery-overlay">
+                        <h3>Terminal</h3>
+                        <p>Voll ausgestattete Shell-Umgebung — ideal für fortgeschrittene Kurse, Automatisierung und Systemverwaltung.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-card">
+                    <img src="assets/vscode.png" alt="VS Code auf EDYOU" />
+                    <div class="gallery-overlay">
+                        <h3>VS Code</h3>
+                        <p>Edyou OS ist vollständig ausgestattet für Programmierung und Debugging — inklusive Extensions, Terminal und Git-Integration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="download-section"><h2>Download <span class="highlight">EDYOU OS</span></h2>
+        <p class="section-desc">Wählen Sie die Version, die am besten zu Ihren Anforderungen passt.</p>
+        
+        <div class="download-grid">
+            <div class="download-card">
+                <div class="download-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <h3>Stable Version</h3>
+                <p>Die stabile Version für den täglichen Einsatz im Klassenzimmer. Optimiert für Schulrechner und Laptops.</p>
+                <ul class="feature-points">
+                    <li>Desktop-optimierte Benutzeroberfläche</li>
+                    <li>Vorinstallierte Bildungssoftware</li>
+                    <li>Regelmäßige Sicherheitsupdates</li>
+                    <li>2.2 GB Download</li>
+                </ul>
+                <div class="download-actions">
+                    <div class="download-button">
+                        <span>Download</span>
+                    </div>
+                    <a href="#" class="download-alt">Checksummen</a>
+                </div>
+            </div>
+
+            <div class="download-card coming-soon">
+                <div class="download-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                    </svg>
+                </div>
+                <h3>Server Version</h3>
+                <p>Die Server-Edition für IT-Administratoren. Optimiert für zentrale Verwaltung und Netzwerkdienste.</p>
+                <ul class="feature-points">
+                    <li>Zentrale Benutzerverwaltung</li>
+                    <li>Backup- und Update-Services</li>
+                    <li>Netzwerk-Management-Tools</li>
+                    <li>3.8 GB Download</li>
+                </ul>
+                <div class="download-actions">
+                    <div class="download-button coming-soon">
+                        <span>Coming Soon</span>
+                    </div>
+                    <a href="#" class="download-alt">Checksummen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>
+                    <img src="assets/logo.png" width="24" height="24" alt="EDYOU small logo" />
+                    EDYOU OS
+                </h3>
+                <p>Eine neue Generation von Schulbetriebssystemen –<br>auf Freiheit aufgebaut, von Bildung angetrieben.</p>
+            </div>
+            <div class="social-links">
+                <span>Folgen Sie uns</span>
+                <a href="#" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="https://github.com/EDYOUOS/EDYOU-OS" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.11.82-.26.82-.58 0-.29-.01-1.04-.016-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.236 1.84 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.76-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.468-2.38 1.235-3.22-.124-.304-.535-1.527.117-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.98-.399 3-.405 1.02.006 2.043.139 3 .405 2.29-1.552 3.297-1.23 3.297-1.23.653 1.65.243 2.873.12 3.176.77.84 1.234 1.91 1.234 3.22 0 4.61-2.804 5.62-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .32.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 EDYOU OS™ | Alle Rechte vorbehalten.
+            </p>
+        </div>
+    </footer>
+    <script>
+        // Smooth Scroll Handler
+        document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerOffset = 80; // Offset für die fixierte Navigation
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Gallery Lightbox
+        (function(){
+            const cards = document.querySelectorAll('.gallery-card');
+            const backdrop = document.getElementById('lightbox-backdrop');
+            const imgEl = document.getElementById('lightbox-img');
+            const titleEl = document.getElementById('lightbox-title');
+            const descEl = document.getElementById('lightbox-desc');
+            const closeBtn = document.querySelector('.lightbox-close');
+
+            function openLightbox(src, title, desc, alt){
+                // set the actual img src and alt for better loading and accessibility
+                imgEl.setAttribute('src', src);
+                imgEl.setAttribute('alt', alt || title || 'Galeriebild');
+                backdrop.classList.add('visible');
+                backdrop.setAttribute('aria-hidden','false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox(){
+                backdrop.classList.remove('visible');
+                backdrop.setAttribute('aria-hidden','true');
+                document.body.style.overflow = '';
+            }
+
+            cards.forEach(card => {
+                card.addEventListener('click', function(e){
+                    const img = card.querySelector('img');
+                    const src = img.getAttribute('src');
+                    const alt = img.getAttribute('alt') || '';
+                    const title = card.querySelector('.gallery-overlay h3')?.textContent || '';
+                    const desc = card.querySelector('.gallery-overlay p')?.textContent || '';
+                    openLightbox(src, title, desc, alt);
+                });
+            });
+
+            closeBtn.addEventListener('click', closeLightbox);
+
+            backdrop.addEventListener('click', function(e){
+                if(e.target === backdrop) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape' && backdrop.classList.contains('visible')){
+                    closeLightbox();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
