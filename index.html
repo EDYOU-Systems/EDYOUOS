@@ -79,7 +79,6 @@
             color: var(--emerald);
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -147,7 +146,6 @@
             50% { transform: translateY(10px); opacity: 0.5; }
         }
 
-        /* About Section */
         .about {
             padding: 6rem 2rem;
             max-width: 1400px;
@@ -217,12 +215,12 @@
             justify-content: center;
         }
 
-        /* image fallbacks for replaced inline SVGs */
+        /* image fallbacks and stuff */
         .logo-large img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 16px; /* Passend zum Container-Radius */
+            border-radius: 16px;
             display: block;
         }
 
@@ -237,7 +235,7 @@
             display: block;
         }
 
-        /* Download Section */
+        /* Download Section n shit */
         .download-section {
             padding: 6rem 2rem;
             text-align: center;
@@ -402,7 +400,6 @@
             align-items: center;
         }
 
-        /* gallery image sizing (replaced SVGs) */
         .gallery-item img {
             width: 150px;
             height: 150px;
@@ -439,7 +436,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Gallery Section */
+        /* Very cool  Gallery Section */
         .gallery {
             padding: 6rem 2rem;
             background: var(--dark-card);
@@ -488,13 +485,10 @@
             height: 150px;
             margin-bottom: 1rem;
         }
-
-        /* Gallery cards: image zoom on hover and bottom-left overlay */
         .gallery-grid {
             max-width: 1600px;
             margin: 0 auto;
             display: grid;
-            /* aim for large, nearly full-size cards on desktop to suit 1600x900 images */
             grid-template-columns: repeat(auto-fit, minmax(720px, 1fr));
             gap: 2rem;
         }
@@ -502,8 +496,7 @@
         .gallery-item {
             background: var(--dark-bg);
             border-radius: 15px;
-            padding: 0; /* padding moved to card content */
-            /* use a subtler border that blends with the background to avoid visible bands */
+            padding: 0;
             border: 1px solid rgba(255,255,255,0.03);
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -539,13 +532,12 @@
             flex: 1;
         }
 
-        /* On small viewports prefer contain to avoid cropping important content */
         @media (max-width: 900px) {
             .gallery-card img {
                 object-fit: contain;
             }
             .gallery-grid {
-                grid-template-columns: 1fr; /* stack on small screens */
+                grid-template-columns: 1fr;
             }
             .gallery-card {
                 min-height: 300px;
@@ -555,7 +547,6 @@
 
         .gallery-card:hover img {
             transform: scale(1.03);
-            /* mild darken on hover so white overlay text pops against the image */
             filter: brightness(0.9);
         }
 
@@ -563,13 +554,13 @@
             position: absolute;
             left: 1rem;
             bottom: 1rem;
-            max-width: 40%; /* prevent overlay from filling whole card */
+            max-width: 40%;
             padding: 1rem;
-            background: rgba(2,6,23,0.8); /* Dunklerer Hintergrund für bessere Lesbarkeit */
+            background: rgba(2,6,23,0.8);
             color: #fff;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem; /* Größerer Abstand zwischen Titel und Text */
+            gap: 0.5rem;
             align-items: flex-start;
             transform: translateY(12px);
             opacity: 0;
@@ -577,8 +568,7 @@
             border-radius: 8px;
             box-shadow: 0 6px 12px rgba(0,0,0,0.12);
         }
-
-        /* show overlay only on hover */
+        
         .gallery-card:hover .gallery-overlay {
             transform: translateY(0);
             opacity: 1;
@@ -589,28 +579,28 @@
             font-size: 1.15rem;
             font-weight: 700;
             color: #ffffff;
-            line-height: 1.3; /* Bessere Zeilenhöhe für Überschriften */
-            margin-bottom: 0.25rem; /* Zusätzlicher Abstand zum Text */
+            line-height: 1.3;
+            margin-bottom: 0.25rem;
         }
 
         .gallery-overlay p {
             margin: 0;
             color: rgba(255,255,255,0.92);
             font-size: 0.92rem;
-            line-height: 1.4; /* Größere Zeilenhöhe für bessere Lesbarkeit */
+            line-height: 1.4;
         }
 
-        /* card hover effect */
+
         .gallery-item:hover {
             transform: translateY(-6px);
             box-shadow: 0 18px 40px rgba(4,120,87,0.12);
         }
 
-        /* Lightbox / modal */
+
         #lightbox-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0); /* start transparent, animate to darker on .visible */
+            background: rgba(0, 0, 0, 0);
             display: none;
             align-items: center;
             justify-content: center;
@@ -618,13 +608,12 @@
             padding: 2rem;
             transition: background 250ms ease, opacity 250ms ease;
             opacity: 0;
-            /* subtle blur of background behind the backdrop (optional, may be disabled on older browsers) */
             backdrop-filter: blur(2px);
         }
 
         #lightbox-backdrop.visible {
             display: flex;
-            background: rgba(0, 0, 0, 0.65); /* darken page when visible */
+            background: rgba(0, 0, 0, 0.65);
             opacity: 1;
         }
 
@@ -636,13 +625,12 @@
             box-shadow: 0 20px 60px rgba(2, 6, 23, 0);
             overflow: hidden;
             position: relative;
-            /* start slightly scaled down and transparent, then animate in */
             transform: translateY(8px) scale(0.98);
             opacity: 0;
             transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease;
         }
 
-        /* when the backdrop is visible, bring the lightbox content into view */
+
         #lightbox-backdrop.visible .lightbox-content {
             transform: translateY(0) scale(1);
             opacity: 1;
@@ -652,10 +640,9 @@
             width: 100%;
             display: block;
             max-height: 80vh;
-            object-fit: contain; /* show full image in lightbox */
+            object-fit: contain;
             object-position: center;
             background-color: var(--dark-bg);
-            /* ensure it sits on the same dark background as the card */
             border-radius: 8px 8px 0 0;
         }
 
@@ -663,7 +650,7 @@
             position: absolute;
             left: 1rem;
             bottom: 1rem;
-            color: #071017c4; /* dark text for lightbox overlay */
+            color: #071017c4;
             max-width: calc(100% - 2rem);
             text-align: left;
             background: rgba(0, 0, 0, 0.675);
@@ -709,7 +696,6 @@
             filter: brightness(0.95);
         }
 
-        /* Footer */
         footer {
             background-color: var(--dark-bg);
             padding: 3rem 2rem 1rem;
@@ -792,7 +778,6 @@
                 grid-template-columns: 1fr;
             }
 
-            /* make navbar more compact and allow wrapping on small screens */
             .nav-links {
                 gap: 0.75rem;
                 flex-wrap: wrap;
@@ -804,12 +789,10 @@
                 padding: 0.25rem 0.35rem;
             }
 
-            /* reduce header padding so nav links don't overflow */
             header {
                 padding: 0.6rem 1rem;
             }
 
-            /* logo: slightly smaller image but more gap to the text */
             .logo {
                 gap: 0.75rem;
             }
@@ -830,10 +813,8 @@
                 gap: 1rem;
             }
         }
-
-        /* Further mobile tweaks for very small screens */
+        
         @media (max-width: 480px) {
-            /* make the main nav even more compact */
             .nav-links {
                 gap: 0.5rem;
             }
@@ -842,26 +823,23 @@
                 font-size: 0.9rem;
             }
 
-            /* gallery: moderate card height and fill the card area with the image (cover) */
             .gallery-card {
-                min-height: 260px; /* slightly taller so cover has room */
+                min-height: 260px;
             }
 
-            /* make gallery images fill the card area so borders look correct */
             .gallery-card img {
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
             }
 
-            /* remove small fixed thumbnail overrides so images keep correct aspect and sizing */
+
             .gallery-item img {
                 width: auto;
                 height: auto;
                 max-width: 100%;
             }
 
-            /* download grid: stack cards vertically and reduce padding to prevent horizontal overflow */
             .download-grid {
                 grid-template-columns: 1fr;
                 padding: 0.5rem;
@@ -903,7 +881,6 @@
         <div class="scroll-indicator"></div>
     </section>
 
-    <!-- Lightbox / enlarged card view -->
     <div id="lightbox-backdrop" aria-hidden="true">
         <div class="lightbox-content" role="dialog" aria-modal="true">
             <button class="lightbox-close" aria-label="Schließen">×</button>
@@ -1137,7 +1114,6 @@
             });
         });
 
-        // Gallery Lightbox
         (function(){
             const cards = document.querySelectorAll('.gallery-card');
             const backdrop = document.getElementById('lightbox-backdrop');
@@ -1147,7 +1123,6 @@
             const closeBtn = document.querySelector('.lightbox-close');
 
             function openLightbox(src, title, desc, alt){
-                // set the actual img src and alt for better loading and accessibility
                 imgEl.setAttribute('src', src);
                 imgEl.setAttribute('alt', alt || title || 'Galeriebild');
                 backdrop.classList.add('visible');
@@ -1187,6 +1162,7 @@
     </script>
 </body>
 </html>
+
 
 
 
